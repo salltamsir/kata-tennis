@@ -7,6 +7,10 @@ public class Scoring {
     private static Map<Integer, String> scoreMap = Map.of(0,"0",1,"15",2,"30",3,"40");
     private static final int firstDeucePoint = 3;
 
+    private static final String  SPACE = " ";
+    private static final String COLON = " : ";
+    private static final String SLASH = " / ";
+
     /** Get score after a sequence of points
      *
      * @param score Game points sequence
@@ -48,16 +52,16 @@ public class Scoring {
             if(isFirstDeuce(firstPlayer, secondPlayer)){
                 return Status.DEUCE.getValue();
             }
-            return firstPlayer + " : " + scoreMap.get(firstPlayer.getPoints()) + " / " + secondPlayer + " : " + scoreMap.get(secondPlayer.getPoints());
+            return firstPlayer + COLON + scoreMap.get(firstPlayer.getPoints()) + SLASH + secondPlayer + COLON + scoreMap.get(secondPlayer.getPoints());
         }
         //A player won
         if (hasWinner(firstPlayer, secondPlayer)) {
             finished = true;
-            return getLeader(firstPlayer, secondPlayer) + " "+ Status.WIN.getValue();
+            return getLeader(firstPlayer, secondPlayer) +SPACE+ Status.WIN.getValue();
         }
         // A player has AD
         if (isAdvantage(firstPlayer, secondPlayer)) {
-            return Status.AD.getValue()+" " + getLeader(firstPlayer, secondPlayer);
+            return Status.AD.getValue()+SPACE+getLeader(firstPlayer, secondPlayer);
         }
         //Else deuce
         return Status.DEUCE.getValue();

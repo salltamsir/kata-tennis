@@ -15,10 +15,24 @@ class ScoringTest {
 
     @Test
     void game_withInvalidScoreString_shouldReturnException(){
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()->score.computeSequence("ABCD"));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()->score.computeSequence("\nAAAABC"));
         assertEquals("Only A and B are permitted", exception.getMessage());
     }
-
+    @Test
+    void game_withBlankScoreString_shouldReturnException(){
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()->score.computeSequence("     "));
+        assertEquals("Only A and B are permitted", exception.getMessage());
+    }
+    @Test
+    void game_withNullScore_shouldReturnException(){
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()->score.computeSequence(null));
+        assertEquals("Score must have at least one point", exception.getMessage());
+    }
+    @Test
+    void game_withEmptyScore_shouldReturnException(){
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()->score.computeSequence(""));
+        assertEquals("Score must have at least one point", exception.getMessage());
+    }
     @Test
     void testWhiteGamePlayerA(){
         String stringScore = "AAAA";
@@ -46,7 +60,7 @@ class ScoringTest {
     }
 
     @Test
-    void testWonGamePlayerA(){
+    void testWonByPlayerA(){
         String stringScore = "AABBAA";
         String expectedScore = """
                 Player A : 15 / Player B : 0
@@ -59,7 +73,6 @@ class ScoringTest {
         String finalScore = score.computeSequence(stringScore);
         assertEquals(expectedScore, finalScore);
     }
-
     @Test
     void testWonByPlayerAAfterAdvantage(){
         String stringScore = "AABBABAA";

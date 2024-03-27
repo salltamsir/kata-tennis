@@ -5,7 +5,7 @@ import java.util.Map;
 public class Scoring {
     private boolean finished;
     private static Map<Integer, String> scoreMap = Map.of(0, "0", 1, "15", 2, "30", 3, "40");
-    private static final int firstDeucePoint = 3;
+    private static final int MIN_POINT_FOR_DEUCE = 3;
 
     private static final String SPACE = " ";
     private static final String COLON = " : ";
@@ -49,11 +49,12 @@ public class Scoring {
         String aScore = scoreMap.get(firstPlayer.getPoints());
         String bScore = scoreMap.get(secondPlayer.getPoints());
 
+        // Deuce
+        if(isDeuce(firstPlayer, secondPlayer)){
+            return Status.DEUCE.getValue();
+        }
         //Regular Score => [0-40]
         if (aScore != null && bScore != null) {
-            if (isFirstDeuce(firstPlayer, secondPlayer)) {
-                return Status.DEUCE.getValue();
-            }
             return firstPlayer + COLON + scoreMap.get(firstPlayer.getPoints()) + SLASH + secondPlayer + COLON + scoreMap.get(secondPlayer.getPoints());
         }
         //A player won
@@ -62,26 +63,16 @@ public class Scoring {
             return getLeader(firstPlayer, secondPlayer) + SPACE + Status.WIN.getValue();
         }
         // A player has AD
-        if (isAdvantage(firstPlayer, secondPlayer)) {
-            return Status.AD.getValue() + SPACE + getLeader(firstPlayer, secondPlayer);
-        }
-        //Else deuce
-        return Status.DEUCE.getValue();
+        return Status.AD.getValue() + SPACE + getLeader(firstPlayer, secondPlayer);
 
     }
 
     private boolean hasWinner(Player a, Player b) {
         return Math.abs(a.getPoints() - b.getPoints()) > 1;
     }
-
-    private boolean isAdvantage(Player a, Player b) {
-        return Math.abs(a.getPoints() - b.getPoints()) == 1;
+    private boolean isDeuce(Player a, Player b) {
+        return (a.getPoints() >= MIN_POINT_FOR_DEUCE && a.getPoints() == b.getPoints());
     }
-
-    private boolean isFirstDeuce(Player a, Player b) {
-        return a.getPoints() == firstDeucePoint && b.getPoints() == firstDeucePoint;
-    }
-
     private Player getLeader(Player a, Player b) {
         return a.getPoints() > b.getPoints() ? a : b;
     }

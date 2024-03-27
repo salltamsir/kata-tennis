@@ -7,7 +7,7 @@ public class Scoring {
     private boolean finished;
     private static Map<Integer, String> scoreMap;
     private static final String WIN = " wins the game";
-    private static final String DEUCE = "DEUCE";
+    private static final String DEUCE = "Deuce";
     private static final String AD = "Advantage ";
 
     static {

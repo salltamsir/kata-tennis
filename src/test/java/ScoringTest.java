@@ -17,6 +17,8 @@ class ScoringTest {
     void game_withInvalidScoreString_shouldReturnException(){
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, ()->score.computeSequence("\nAAAABC"));
         assertEquals("Only A and B are permitted", exception.getMessage());
+        exception = assertThrows(IllegalArgumentException.class, ()->score.computeSequence("aabbAA"));
+        assertEquals("Only A and B are permitted", exception.getMessage());
     }
     @Test
     void game_withBlankScoreString_shouldReturnException(){
@@ -101,7 +103,7 @@ class ScoringTest {
                 Player A : 40 / Player B : 30
                 Player A : 40 / Player B : 40
                 Advantage Player A
-                DEUCE
+                Deuce
                 Advantage Player A
                 Player A wins the game
                 """;
@@ -179,17 +181,17 @@ class ScoringTest {
                 Player A : 40 / Player B : 30
                 Player A : 40 / Player B : 40
                 Advantage Player A
-                DEUCE
+                Deuce
                 Advantage Player B
-                DEUCE
+                Deuce
                 Advantage Player A
-                DEUCE
+                Deuce
                 Advantage Player B
-                DEUCE
+                Deuce
                 Advantage Player A
-                DEUCE
+                Deuce
                 Advantage Player A
-                DEUCE
+                Deuce
                 Advantage Player B
                 Player B wins the game
                 """;
@@ -209,15 +211,15 @@ class ScoringTest {
                 Player A : 40 / Player B : 30
                 Player A : 40 / Player B : 40
                 Advantage Player A
-                DEUCE
+                Deuce
                 Advantage Player A
-                DEUCE
+                Deuce
                 Advantage Player A
-                DEUCE
+                Deuce
                 Advantage Player A
-                DEUCE
+                Deuce
                 Advantage Player B
-                DEUCE
+                Deuce
                 """;
         String deuceScore = score.computeSequence(stringScore);
         assertEquals(expectedScore, deuceScore);

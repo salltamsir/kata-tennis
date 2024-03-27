@@ -38,13 +38,13 @@ public class Scoring {
      * @return String representation of the current score
      */
     private String computeSnapshotScore(Player firstPlayer, Player secondPlayer) {
-        String aScore = scoreMap.get(firstPlayer.getPoints());
-        String bScore = scoreMap.get(secondPlayer.getPoints());
-
         // Deuce
         if (isDeuce(firstPlayer, secondPlayer)) {
             return Status.DEUCE.getValue();
         }
+
+        String aScore = scoreMap.get(firstPlayer.getPoints());
+        String bScore = scoreMap.get(secondPlayer.getPoints());
         //Regular Score => [0-40]
         if (aScore != null && bScore != null) {
             return String.format("%s : %s / %s : %s", firstPlayer, scoreMap.get(firstPlayer.getPoints()), secondPlayer, scoreMap.get(secondPlayer.getPoints()));

@@ -7,10 +7,6 @@ public class Scoring {
     private static Map<Integer, String> scoreMap = Map.of(0, "0", 1, "15", 2, "30", 3, "40");
     private static final int MIN_POINT_FOR_DEUCE = 3;
 
-    private static final String SPACE = " ";
-    private static final String COLON = " : ";
-    private static final String SLASH = " / ";
-
     /**
      * Get score after a sequence of points
      *
@@ -55,16 +51,15 @@ public class Scoring {
         }
         //Regular Score => [0-40]
         if (aScore != null && bScore != null) {
-            return firstPlayer + COLON + scoreMap.get(firstPlayer.getPoints()) + SLASH + secondPlayer + COLON + scoreMap.get(secondPlayer.getPoints());
+            return String.format("%s : %s / %s : %s", firstPlayer,scoreMap.get(firstPlayer.getPoints()),secondPlayer, scoreMap.get(secondPlayer.getPoints()));
         }
         //A player won
         if (hasWinner(firstPlayer, secondPlayer)) {
             finished = true;
-            return getLeader(firstPlayer, secondPlayer) + SPACE + Status.WIN.getValue();
+            return String.format("%s %s", getLeader(firstPlayer,secondPlayer),Status.WIN.getValue());
         }
         // A player has AD
-        return Status.AD.getValue() + SPACE + getLeader(firstPlayer, secondPlayer);
-
+        return String.format("%s %s",Status.AD.getValue(),getLeader(firstPlayer,secondPlayer));
     }
 
     private boolean hasWinner(Player a, Player b) {

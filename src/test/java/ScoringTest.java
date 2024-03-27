@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ScoringTest {
     private Scoring score = new Scoring();
-
     @BeforeEach
     void initScore(){
         score = new Scoring();

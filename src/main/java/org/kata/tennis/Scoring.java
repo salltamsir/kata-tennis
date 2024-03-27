@@ -1,22 +1,11 @@
 package org.kata.tennis;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Scoring {
     private boolean finished;
-    private static Map<Integer, String> scoreMap;
-    private static final String WIN = " wins the game";
-    private static final String DEUCE = "Deuce";
-    private static final String AD = "Advantage ";
+    private static Map<Integer, String> scoreMap = Map.of(0,"0",1,"15",2,"30",3,"40");
 
-    static {
-        scoreMap = new HashMap<>();
-        scoreMap.put(0, "0");
-        scoreMap.put(1, "15");
-        scoreMap.put(2, "30");
-        scoreMap.put(3, "40");
-    }
     /** Get score after a sequence of points
      *
      * @param score Game points sequence
@@ -60,14 +49,14 @@ public class Scoring {
         //A player won
         if (hasWinner(firstPlayer, secondPlayer)) {
             finished = true;
-            return getLeader(firstPlayer, secondPlayer) + WIN;
+            return getLeader(firstPlayer, secondPlayer) + " "+ Status.WIN.getValue();
         }
         // A player has AD
         if (isAdvantage(firstPlayer, secondPlayer)) {
-            return AD + getLeader(firstPlayer, secondPlayer);
+            return Status.AD.getValue()+" " + getLeader(firstPlayer, secondPlayer);
         }
         //Else deuce
-        return DEUCE;
+        return Status.DEUCE.getValue();
 
     }
     private boolean hasWinner(Player a, Player b) {

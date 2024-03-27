@@ -5,6 +5,7 @@ import java.util.Map;
 public class Scoring {
     private boolean finished;
     private static Map<Integer, String> scoreMap = Map.of(0,"0",1,"15",2,"30",3,"40");
+    private static final int firstDeucePoint = 3;
 
     /** Get score after a sequence of points
      *
@@ -44,6 +45,9 @@ public class Scoring {
 
         //Regular Score => [0-40]
         if (aScore != null && bScore != null) {
+            if(isFirstDeuce(firstPlayer, secondPlayer)){
+                return Status.DEUCE.getValue();
+            }
             return firstPlayer + " : " + scoreMap.get(firstPlayer.getPoints()) + " / " + secondPlayer + " : " + scoreMap.get(secondPlayer.getPoints());
         }
         //A player won
@@ -64,6 +68,10 @@ public class Scoring {
     }
     private boolean isAdvantage(Player a, Player b) {
         return Math.abs(a.getPoints() - b.getPoints()) == 1;
+    }
+
+    private boolean isFirstDeuce(Player a, Player b){
+        return a.getPoints() == firstDeucePoint && b.getPoints() == firstDeucePoint;
     }
     private Player getLeader(Player a, Player b) {
         return a.getPoints() > b.getPoints() ? a : b;

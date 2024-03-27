@@ -83,7 +83,7 @@ class ScoringTest {
                 Player A : 30 / Player B : 15
                 Player A : 30 / Player B : 30
                 Player A : 40 / Player B : 30
-                Player A : 40 / Player B : 40
+                Deuce
                 Advantage Player A 
                 Player A wins the game
                 """;
@@ -100,7 +100,7 @@ class ScoringTest {
                 Player A : 30 / Player B : 15
                 Player A : 30 / Player B : 30
                 Player A : 40 / Player B : 30
-                Player A : 40 / Player B : 40
+                Deuce
                 Advantage Player A
                 Deuce
                 Advantage Player A
@@ -161,7 +161,7 @@ class ScoringTest {
                 Player A : 30 / Player B : 15
                 Player A : 30 / Player B : 30
                 Player A : 40 / Player B : 30
-                Player A : 40 / Player B : 40
+                Deuce
                 Advantage Player B
                 Player B wins the game
                 """;
@@ -178,7 +178,7 @@ class ScoringTest {
                 Player A : 30 / Player B : 15
                 Player A : 30 / Player B : 30
                 Player A : 40 / Player B : 30
-                Player A : 40 / Player B : 40
+                Deuce
                 Advantage Player A
                 Deuce
                 Advantage Player B
@@ -208,7 +208,7 @@ class ScoringTest {
                 Player A : 40 / Player B : 0
                 Player A : 40 / Player B : 15
                 Player A : 40 / Player B : 30
-                Player A : 40 / Player B : 40
+                Deuce
                 Advantage Player A
                 Deuce
                 Advantage Player A
@@ -233,7 +233,7 @@ class ScoringTest {
                 Player A : 15 / Player B : 30
                 Player A : 30 / Player B : 30
                 Player A : 30 / Player B : 40
-                Player A : 40 / Player B : 40
+                Deuce
                 Advantage Player B
                 """;
         String adScore = score.computeSequence(stringScore);

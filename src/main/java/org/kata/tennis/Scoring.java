@@ -20,16 +20,12 @@ public class Scoring {
 
         StringBuilder globalScore = new StringBuilder();
         for (char currentChar : score.toCharArray()) {
-            if (!this.finished) {
-                if (currentChar == 'A') {
-                    playerA.doScore();
-                    globalScore.append(computeSnapshotScore(playerA, playerB)).append('\n');
-                } else {
-                    playerB.doScore();
-                    globalScore.append(computeSnapshotScore(playerA, playerB)).append('\n');
-                }
+            if (this.finished) {
+                break;
             }
-
+            Player pointWinner = (currentChar == 'A') ? playerA : playerB;
+            pointWinner.doScore();
+            globalScore.append(computeSnapshotScore(playerA, playerB)).append('\n');
         }
         return globalScore.toString();
     }
@@ -46,28 +42,30 @@ public class Scoring {
         String bScore = scoreMap.get(secondPlayer.getPoints());
 
         // Deuce
-        if(isDeuce(firstPlayer, secondPlayer)){
+        if (isDeuce(firstPlayer, secondPlayer)) {
             return Status.DEUCE.getValue();
         }
         //Regular Score => [0-40]
         if (aScore != null && bScore != null) {
-            return String.format("%s : %s / %s : %s", firstPlayer,scoreMap.get(firstPlayer.getPoints()),secondPlayer, scoreMap.get(secondPlayer.getPoints()));
+            return String.format("%s : %s / %s : %s", firstPlayer, scoreMap.get(firstPlayer.getPoints()), secondPlayer, scoreMap.get(secondPlayer.getPoints()));
         }
         //A player won
         if (hasWinner(firstPlayer, secondPlayer)) {
             finished = true;
-            return String.format("%s %s", getLeader(firstPlayer,secondPlayer),Status.WIN.getValue());
+            return String.format("%s %s", getLeader(firstPlayer, secondPlayer), Status.WIN.getValue());
         }
         // A player has AD
-        return String.format("%s %s",Status.AD.getValue(),getLeader(firstPlayer,secondPlayer));
+        return String.format("%s %s", Status.AD.getValue(), getLeader(firstPlayer, secondPlayer));
     }
 
     private boolean hasWinner(Player a, Player b) {
         return Math.abs(a.getPoints() - b.getPoints()) > 1;
     }
+
     private boolean isDeuce(Player a, Player b) {
         return (a.getPoints() >= MIN_POINT_FOR_DEUCE && a.getPoints() == b.getPoints());
     }
+
     private Player getLeader(Player a, Player b) {
         return a.getPoints() > b.getPoints() ? a : b;
     }
